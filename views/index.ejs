@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+    <body>
+        <%- include('./common/header.ejs') %>
+        <h1>Welcome to PlacesToStay!</h1>
+        <form>
+            <lable for="ptsLocation">Please enter the location you desire:</lable>
+            <input type="text" id="ptsLocation">
+            <input type="button" id="ptsSearch" value="Search">
+        </form>
+        
+        <div id="ptsResults"></div>
+        <script src="/services/search.js"></script>
+    </body>
+</html>

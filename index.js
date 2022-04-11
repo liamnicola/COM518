@@ -1,21 +1,30 @@
+require("dotenv").config();
 const express = require('express');
-const mysql = require('mysql2');
-
 const app = express();
+const mysql = require('mysql2');
+const {PORT} = process.env;
+const bodyParser = require('body-parser');
+const path = require('path');
 
-const con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'ae1'
+
+
+const accomRouter = require('./routes/accomRouter');
+app.use('/accom', accomRouter);
+
+app.use(express.static("public"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.set("view engine", "ejs");
+
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+
+app.get("/", (req, res) => {
+    res.render("index.ejs");
 });
 
-con.connect(error => {
-	if(error) {
-		console.log(`Cannot connect to database: ${error}`);
-		process.exit(1);	
-	}
-	else {
-		console.log("Connected to database")
-    }
-});
+
+app.listen(PORT, () => {
+    console.log(
+        `App listening at http://localhost:${PORT}`,
+    );
+    });
