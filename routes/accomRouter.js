@@ -30,22 +30,26 @@ router.get('/location/:location/type/:type', (req, res) => {
     });
 });
 
-router.post('/booking', (req, res) => {
-    con.query('INSERT INTO acc_bookings(accID, npeople, thedate) VALUES(?,?,?)',
-    [req.params.accID, req.body.quantity, req.body.date],
-    (error, results, fields) => {
-        if(error) {
-            res.status(500).json({error: error});
-        }
-        con.query('UPDATE acc_dates SET availability = availability - ? WHERE thedate=? and accID = ?',
-        [req.body.quantity, req.body.date, req.params.accID],
+router.post('/booking/:accID/:npeople/:thedate', (req, res) => {
+    if(!req.params.accID && !req.params.npeople && !req.params.thedate) {
+        res.status(400).json({error : "Please input all fields"})
+    } else {
+        con.query('INSERT INTO acc_bookings(accID, npeople, thedate) VALUES(?,?,?)',
+        [req.params.accID, req.params.npeople, req.params.thedate],
         (error, results, fields) => {
             if(error) {
                 res.status(500).json({error: error});
             }
-            res.status(200).json({results: "Success"});
+            con.query('UPDATE acc_dates SET availability = availability - ? WHERE thedate=? and accID = ?',
+            [req.params.npeople, req.params.thedate, req.params.accID],
+            (error, results, fields) => {
+                if(error) {
+                    res.status(500).json({error: error});
+                }
+                res.status(200).json({results: "Success"});
+            });
         });
-        });
+        };
     });
     
 module.exports = router;

@@ -6,13 +6,16 @@
     <body>
         <%- include('./common/header.ejs') %>
         <h1>Welcome to PlacesToStay!</h1>
-        <form>
+        <form id="searchBox">
             <lable for="ptsLocation">Please enter the location you desire:</lable>
             <input type="text" id="ptsLocation">
             <input type="button" id="ptsSearch" value="Search">
         </form>
-        
+
         <div id="ptsResults"></div>
+
+        <script type="text/javascript" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
         <script src="/services/search.js"></script>
+        <script src="/services/map.js"></script>
     </body>
 </html>
