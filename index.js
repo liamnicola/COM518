@@ -13,13 +13,20 @@ app.set("view engine", "ejs");
 
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
 
-const accomRouter = require('./routes/accomRouter');
-app.use('/accom', accomRouter);
+const accRouter = require('./routes/accRouter');
+app.use('/acc', accRouter);
 
 app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
+app.get("/map", (req, res) => {
+    res.render("map.ejs");
+});
+
+app.get("/test", (req,res) => {
+    res.render("test.ejs")
+});
 
 app.listen(PORT, () => {
     console.log(
