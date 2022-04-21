@@ -24,9 +24,6 @@ app.get("/map", (req, res) => {
     res.render("map.ejs");
 });
 
-app.get("/test", (req,res) => {
-    res.render("test.ejs")
-});
 
 app.listen(PORT, () => {
     console.log(
