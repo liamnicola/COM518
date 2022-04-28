@@ -45,8 +45,8 @@ accRouter.post('/booking', check, (req, res) => {
     if(!req.body.accID && !req.body.npeople && !req.body.thedate) {
         res.status(400).json({error : "Please input all fields"})
     } else {
-        con.query('INSERT INTO acc_bookings(accID, npeople, thedate) VALUES(?,?,?)',
-        [req.body.accID, req.body.npeople, req.body.thedate],
+        con.query('INSERT INTO acc_bookings(accID, npeople, username, thedate) VALUES(?,?,?,?)',
+        [req.body.accID, req.body.npeople, req.user[0].username, req.body.thedate],
         (error, results, fields) => {
             if(error) {
                 res.status(500).json({error: error});
