@@ -54,15 +54,27 @@
         #map{
             width: 80%; 
             height: 600px;
-            display: block;  
+            display: block; 
+            padding-left: 20%; 
         }
-
+        #prompt{
+            font-style: bold;
+            color: red;
+            font-size: 30pt;
+        }
     </style>
 
 </head>
 
 
-<nav class="nav justify-content-center">
+<nav class="nav justify-content-center" id="navbar">
+    <% if (user){%>
     <a class="nav-link" href="/">Home</a>
-    <a class="nav-link" href="/map">Map</a>
+    <a class="nav-link" href="/auth/logout">Logout</a>
+    <% }else {%>
+    <a class="nav-link" href="/auth/login">Please login to Access PlacesToStay!</a>
+    <%}%>
+        
 </nav>
+
+

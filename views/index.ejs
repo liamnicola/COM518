@@ -8,6 +8,9 @@
     <body>
         <%- include('./common/header.ejs') %>
         <h1>Welcome to PlacesToStay!</h1>
+        <%if(user) {%>
+        <div><p>Welcome Back <%= user[0].username%>!<p></p></div>
+        
         <form id="searchBox">
             <lable for="ptsLocation">Please enter the location you desire:</lable>
             <input type="text" id="ptsLocation">
@@ -20,7 +23,10 @@
             <table id="resultsTable">
             </table>
         </div>
-
+        <% } %>
+        <%if(!user) {%>
+            <p id="prompt">Please login to access features</p>
+        <% } %>
 
         <script src="/services/search.js"></script>
     </body>

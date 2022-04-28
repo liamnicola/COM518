@@ -20,7 +20,7 @@ async function ajaxSearch(location) {
     accommodations.forEach( (accommodation, index) => {
         L.marker([accommodation.latitude, accommodation.longitude]).addTo(map)
         const point = L.marker([accommodation.latitude, accommodation.longitude]).addTo(map)
-        const text = `Name ${accommodation.name}`;
+        const text = `${accommodation.name} - ${accommodation.description}`;
         point.bindPopup(text);
         html += `
         <thead>
