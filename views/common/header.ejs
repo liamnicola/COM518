@@ -34,6 +34,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             padding-top: 1%;
+            text-align: center;
         }
         p{
             font-family: Arial, Helvetica, sans-serif;
@@ -42,13 +43,14 @@
         }
         #searchBox{
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 14pt;
+            font-size: 18pt;
             padding-top: 2%;
             padding-left: 5%;
+            text-align: center;
         }
         #ptsResults{
             padding-top: 1%;
-            font-size: 100%;
+            font-size: 15pt;
             text-align: center;
         }
         #map{
@@ -56,11 +58,17 @@
             height: 600px;
             display: block; 
             padding-left: 20%; 
+            margin: auto;
         }
         #prompt{
             font-style: bold;
             color: red;
             font-size: 30pt;
+            text-align: center;
+        }
+        #welcome{
+            font-size: 18pt;
+            text-align: center;
         }
     </style>
 
@@ -70,7 +78,7 @@
 <nav class="nav justify-content-center" id="navbar">
     <% if (user){%>
     <a class="nav-link" href="/">Home</a>
-    <a class="nav-link" href="/auth/logout">Logout</a>
+    <a class="nav-link" href="/auth/logout"><%= user[0].username %> - Logout?</a>
     <% }else {%>
     <a class="nav-link" href="/auth/login">Please login to Access PlacesToStay!</a>
     <%}%>

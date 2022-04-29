@@ -30,7 +30,7 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     cookie:{
-        maxAge: 700000,
+        maxAge: 600000,
     }
 }));
 
@@ -42,31 +42,28 @@ passport.use(new LocalStrategy(async(username, password, done)=> {
     try {
         const logUser = await userDao.login(username, password);
         if(logUser == null) {
-            console.log("affjsa")
+            console.log("LocalStrat Fail")
             return done(null, false);
-        } else {
-            console.log("afsnasfjsa")
+        }else {
+            console.log("LocalStrat Success")
             return done(null, logUser);
         }
-    } catch(e) {
-        return done(e);
+    } catch(error) {
+        return done(error);
     }
 }));
 
 passport.serializeUser((logUser, done) => {
-    console.log(logUser[0].ID)
     done(null, logUser[0].ID);
 });
 
 passport.deserializeUser(async(userid, done) => {
     try {
         const userDao = new userDAO(con, "acc_users");
-
-        const details = await userDao.findByID(userid);
-
-        done(null, details);
-    } catch(e) {
-        done(e);
+        const userInfo = await userDao.ID(userid);
+        done(null, userInfo);
+    } catch(error) {
+        done(error);
     }
 })
 
@@ -85,8 +82,9 @@ function checkAuth(req,res,next){
 }
 
 global.user = false;
+
 app.use("*", async (req, res, next) => {
-  if (req.session.passport && !global.user) {
+  if (!global.user && req.session.passport) {
     const user = req.user;
     global.user = user;}
   next();

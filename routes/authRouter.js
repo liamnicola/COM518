@@ -24,9 +24,4 @@ authRouter.get('/logout', function(req,res){
     console.log("Logged out of" + user)
 });
 
-authRouter.get('/test',(req, res)=> {
-    console.log("TESTINGS");
-    console.log(req.session);
-})
-
 module.exports = authRouter;

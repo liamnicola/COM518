@@ -9,7 +9,7 @@
         <%- include('./common/header.ejs') %>
         <h1>Welcome to PlacesToStay!</h1>
         <%if(user) {%>
-        <div><p>Welcome Back <%= user[0].username%>!<p></p></div>
+        <div><p id="welcome">Welcome Back <%= user[0].username%>!<p></p></div>
         
         <form id="searchBox">
             <lable for="ptsLocation">Please enter the location you desire:</lable>

@@ -15,9 +15,9 @@ async function ajaxSearch(location) {
     const accommodations = await ajaxResponse.json();
     let html = "";
 
-    map.setView([accommodations[0].latitude, accommodations[0].longitude], 7);
+    
 
-    accommodations.forEach( (accommodation, index) => {
+    accommodations.forEach( (accommodation) => {
         L.marker([accommodation.latitude, accommodation.longitude]).addTo(map)
         const point = L.marker([accommodation.latitude, accommodation.longitude]).addTo(map)
         const text = `${accommodation.name} - ${accommodation.description}`;
@@ -25,10 +25,7 @@ async function ajaxSearch(location) {
         html += `
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Type</th>
-                <th scope="col">Location</th>
-                <th scope="col"></th>
+                <th scope="col">Accommodation:</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +34,7 @@ async function ajaxSearch(location) {
                 <td>${accommodation.type}</td>
                 <td>${accommodation.location}</td>
                 <td><button type="button" onclick="booking(${accommodation.ID})" id="bookButton">Book</button></td>
+                <br />
             </tr>
         </tbody>`;
 
@@ -52,14 +50,14 @@ async function booking(accID){
         thedate: thedate,
         npeople: npeople
     };
-
     const avReq = await fetch(`/acc/availability/${accID}/${thedate}`);
     const avRes = await avReq.json();
 
         if(avRes.length > 0) {
             const avNum = avRes[0].availability
-            if(avNum < npeople){
+            if(avNum <= npeople){
                 alert("There is no space for this date")
+                console.log("There is no availability for this date!")
             } else {
                 const booking = await fetch(`/acc/booking`, {
                     method: 'POST',

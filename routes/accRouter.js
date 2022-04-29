@@ -8,7 +8,7 @@ const check = (req,res,next) => {
         next();
     } else {
         console.error('User Authentication failed');
-        res.status(403);
+        res.status(401);
         res.send({message: "Please log in!"});
     }
 }
